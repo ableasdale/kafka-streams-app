@@ -2,7 +2,6 @@ package io.confluent.cse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.internal.LinkedTreeMap;
 
 import java.io.Reader;
 import java.nio.file.Files;
@@ -22,7 +21,7 @@ public class GsonTest {
 
             // convert JSON file to map
             Map<?, ?> map = gson.fromJson(reader, Map.class);
-
+/*
             // print map entries
             for (Map.Entry<?, ?> entry : map.entrySet()) {
                 //
@@ -34,27 +33,33 @@ public class GsonTest {
                     for (Map.Entry<?, ?> entry2 : entry.get("districts")){
                         System.out.println(entry2.getKey() + "=" + entry2.getKey());
                     }
-                }*/
+                }
 
             }
-
-          List ltm = (List) map.get("districts");
-            for (Object ltm2 : ltm){
+*/
+            List ltm = (List) map.get("districts");
+            for (Object ltm2 : ltm) {
                 JsonObject jsonObject = gson.toJsonTree(ltm2).getAsJsonObject();
                 System.out.println(jsonObject);
-                //ltm2.
             }
-         /*   for (Map.Entry<?, ?> entry : ltm.entrySet()){
-System.out.println("here")
-            }*/
+
             // close reader
-            System.out.println("here");
             reader.close();
+
+
+            Gson gson2 = new Gson();
+            // create a reader
+            Reader reader2 = Files.newBufferedReader(Paths.get("src/main/resources/sourcedata/uk_locations.json"));
+            // convert JSON file to map
+            Map<?, ?> map2 = gson.fromJson(reader2, Map.class);
+            System.out.println("here2");
+
+            for (Map.Entry<?, ?> entry : map2.entrySet()) {
+                System.out.println(entry.getKey());
+            }
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
-
     }
 }
